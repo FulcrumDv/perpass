@@ -1,0 +1,3 @@
+/home/fulcrum/CLionProjects/perpass/cmake-build-debug/CMakeFiles/perpass.dir
+/home/fulcrum/CLionProjects/perpass/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/fulcrum/CLionProjects/perpass/cmake-build-debug/CMakeFiles/rebuild_cache.dir
