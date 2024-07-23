@@ -5,7 +5,9 @@
 
 class Encryption
 {
+    std::string encrypt(std::string line){
 
+    }
 };
 
 

@@ -19,16 +19,15 @@ private:
   std::unordered_map<std::string, std::vector<accountInfo>> accounts;
 
 public:
-  void savePasswordsToFile(const std::string &filename);
-  void loadPasswordsFromFile(const std::string &filename);
-  void addPass(const std::string &website, const std::string &username,
+  void savePasswordToFile(const std::string &filename, const std::string &masterPass);
+  bool  loadPasswordsFromFile(const std::string &filename, const std::string &masterPass);
+  void addAccount(const std::string &website, const std::string &username,
                const std::string &pass);
   void removePass(const std::string &website, const std::string &username);
-  void editPass(const std::string &website, const std::string &username,
-                std::string &pass);
+  bool editPass(const std::string &website, const std::string &username,
+                std::string &pass, std::string &newPass);
   void viewPass(const std::string &website, const std::string &username);
-  void viewAllPasses(const std::string &masterPass,
-                     const std::string &filename);
+  void viewAllPasses(const std::string &filename);
 };
 
 #endif // !PASSMANAGER_
