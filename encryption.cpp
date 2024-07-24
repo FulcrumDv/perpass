@@ -7,7 +7,8 @@
 #include <string.h>
 #include <vector>
 
-void Encryption::handleErrors(void) {}
+void Encryption::handleErrors(void) {
+    }
 
 int Encryption::encrypt(unsigned char *plaintext, int plaintext_len,
                         unsigned char *key, unsigned char *iv,
@@ -18,8 +19,9 @@ int Encryption::encrypt(unsigned char *plaintext, int plaintext_len,
   int ciphertext_len;
 
   // Create and initialise the context
-  if (!(ctx = EVP_CIPHER_CTX_new()))
+  if (!(ctx = EVP_CIPHER_CTX_new())){
     handleErrors();
+  }
 
   /* Initialise the encryption operation
    * IV size for most modes is the same as the block size
@@ -128,6 +130,10 @@ std::string Encryption::decryptLine(const std::vector<unsigned char> &encryptedD
       ciphertext.data(), ciphertext.size(),
       reinterpret_cast<unsigned char *>(const_cast<char *>(key.c_str())),
       iv.data(), decrypted.data());
+
+  while (decrypted_len > 0 && decrypted[decrypted_len - 1] == '\0') {
+        decrypted_len--;
+    }
 
   return std::string(decrypted.begin(), decrypted.begin() + decrypted_len);
 }

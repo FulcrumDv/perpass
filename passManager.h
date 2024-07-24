@@ -26,7 +26,7 @@ public:
   void removePass(const std::string &website, const std::string &username);
   bool editPass(const std::string &website, const std::string &username,
                 std::string &pass, std::string &newPass);
-  void viewPass(const std::string &website, const std::string &username);
+  void viewPass(const std::string &website);
   void viewAllPasses(const std::string &filename);
 };
 
