@@ -8,7 +8,7 @@
 class Display {
 public:
   void menu();
-  void selection(const std::string &filename);
+  void selection(const std::string &filename, const std::string &masterKey);
   void callASCIIScript();
 };
 
