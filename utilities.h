@@ -6,8 +6,10 @@
 
 class Utilities {
 public:
+  bool masterKeyCheck();
   std::string generateMasterKey();
   std::string generatePassword();
+  void allExit();
 };
 
 #endif // !UTILITIES_H
