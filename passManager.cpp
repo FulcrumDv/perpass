@@ -79,9 +79,7 @@ bool PassManager::editPass(const std::string &website,
                            std::string &newPass) {
   return false;
 }
-void PassManager::viewPass(const std::string &website) {
-
-}
+void PassManager::viewPass(const std::string &website) {}
 void PassManager::viewAllPasses(const std::string &masterPass) {
     for (const auto &[website, accountList] : accounts) {
         for (const auto &account : accountList) {

@@ -114,26 +114,37 @@ std::vector<unsigned char> Encryption::encryptLine(const std::string &line,
   return result;
 }
 
-std::string Encryption::decryptLine(const std::vector<unsigned char> &encryptedData,
-                        const std::string &key) {
-  if (encryptedData.size() <= IV_SIZE) {
-    handleErrors();
-  }
+std::string Encryption::decryptLine(const std::vector<unsigned char> &encryptedData, const std::string &key) {
+    if (encryptedData.size() <= IV_SIZE) {
+        throw std::runtime_error("Encrypted data too short");
+    }
+    std::vector<unsigned char> iv(encryptedData.begin(), encryptedData.begin() + IV_SIZE);
+    std::vector<unsigned char> ciphertext(encryptedData.begin() + IV_SIZE, encryptedData.end());
+    std::vector<unsigned char> decrypted(ciphertext.size());
+    int decrypted_len = decrypt(
+        ciphertext.data(), ciphertext.size(),
+        reinterpret_cast<unsigned char *>(const_cast<char *>(key.c_str())),
+        iv.data(), decrypted.data());
 
-  std::vector<unsigned char> iv(encryptedData.begin(),
-                                encryptedData.begin() + IV_SIZE);
-  std::vector<unsigned char> ciphertext(encryptedData.begin() + IV_SIZE,
-                                        encryptedData.end());
-
-  std::vector<unsigned char> decrypted(ciphertext.size());
-  int decrypted_len = decrypt(
-      ciphertext.data(), ciphertext.size(),
-      reinterpret_cast<unsigned char *>(const_cast<char *>(key.c_str())),
-      iv.data(), decrypted.data());
-
-  while (decrypted_len > 0 && decrypted[decrypted_len - 1] == '\0') {
-        decrypted_len--;
+    if (decrypted_len < 0) {
+        throw std::runtime_error("Decryption failed");
     }
 
-  return std::string(decrypted.begin(), decrypted.begin() + decrypted_len);
+    // Remove PKCS7 padding and any non-printable characters
+    std::string result;
+    for (int i = 0; i < decrypted_len; ++i) {
+        if (std::isprint(decrypted[i])) {
+            result.push_back(decrypted[i]);
+        } else {
+            break;  // Stop at the first non-printable character
+        }
+    }
+
+    // Find the position of the last printable character
+    size_t last_printable = result.find_last_not_of(" \t\n\r\f\v");
+    if (last_printable != std::string::npos) {
+        result.erase(last_printable + 1);
+    }
+
+    return result;
 }
