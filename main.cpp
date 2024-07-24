@@ -14,18 +14,6 @@ int main() {
     // Save to file
     pm.savePasswordToFile("passwords.txt", "masterpassword");
 
-    // Verify the file contents
-    std::ifstream file("passwords.txt");
-    if (file.is_open()) {
-        std::string line;
-        std::cout << "File contents:" << std::endl;
-        while (getline(file, line)) {
-            std::cout << line << std::endl;
-        }
-        file.close();
-    } else {
-        std::cerr << "Unable to open file for reading" << std::endl;
-    }
 
     return 0;
 }
