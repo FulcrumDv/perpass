@@ -10,10 +10,10 @@ std::string Utilities::generateMasterKey(){
     std::mt19937_64 mt(re());
     std::uniform_int_distribution<int> dist(0, chars.size() - 1);
 
-    std::string random_string;
+    std::string key;
     for(int i = 0; i < 256; ++i){
-        random_string += chars[dist(mt)];
+        key += chars[dist(mt)];
     }
 
-    return random_string;
+    return key;
 }
