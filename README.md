@@ -10,7 +10,23 @@
 - [x] Master key protection for accessing stored passwords
 - [x] Add visual represenation
 
+## Compile and Run
+
+<b>Clone repo:</b>
+
+```sh
+git clone https://github.com/FulcrumDv/perpass.git
+cd perpass
+```
+<b>Run</b>
+
+```sh
+clang++ encryption.cpp main.cpp passManager.cpp display.cpp service.cpp utilities.cpp  -o perpass -lssl -lcrypto && ./perpass
+```
+
 
 ### Down the line
 - Move storage method to DB
 - Implement AES from scratch (simply for learning)
+
+
