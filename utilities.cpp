@@ -1,6 +1,9 @@
 #include "utilities.h"
 #include <random>
 #include <string>
+#include <iostream>
+#include <iomanip>
+
 
 std::string Utilities::generateMasterKey() {
   const std::string chars =
@@ -25,46 +28,60 @@ std::string Utilities::masterKeyCheck() {
     bool validInput = false;
 
     while (!validInput) {
-        std::cout << "Have you got your master Key? If not you can generate one!\n";
-        std::cout << "Yes I have it - (Y)\n";
-        std::cout << "No, generate one for me - (N)\n";
-        std::cout << "Exit - (Q)\n";
-        std::cout << "Your choice: ";
+        // clear the screen
+        std::cout << "\033[2J\033[1;1H";
 
+        std::cout << "\n" << std::setfill('=') << std::setw(50) << "" << std::endl;
+        std::cout << std::setfill(' ') << std::setw(30) << "Master Key Setup" << std::endl;
+        std::cout << std::setfill('=') << std::setw(50) << "" << std::endl << std::endl;
+
+        std::cout << "Do you have your master key?" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << std::setw(4) << "" << "[Y] Yes, I have it" << std::endl;
+        std::cout << std::setw(4) << "" << "[N] No, generate one for me" << std::endl;
+        std::cout << std::setw(4) << "" << "[Q] Exit" << std::endl << std::endl;
+
+        std::cout << "Your choice: ";
         std::getline(std::cin, input);
 
         if (input.empty()) {
-            std::cout << "No input received. Please enter Y, N, or Q.\n";
+            std::cout << "\nNo input received. Please enter Y, N, or Q." << std::endl;
+            std::cout << "Press Enter to continue...";
+            std::cin.get();
             continue;
         }
 
         char choice = std::tolower(input[0]);
-
         switch (choice) {
             case 'y':
-                std::cout << "Enter master key: ";
+                std::cout << "\nEnter your master key: ";
                 std::getline(std::cin, key);
                 if (key.empty()) {
-                    std::cout << "\nMaster key cannot be empty. Please try again.\n";
+                    std::cout << "\nMaster key cannot be empty. Please try again." << std::endl;
+                    std::cout << "Press Enter to continue...";
+                    std::cin.get();
                     continue;
                 }
                 validInput = true;
                 break;
             case 'n':
-                std::cout << "\n\n\n\n\n\n\n";
                 key = generateMasterKey();
-                validInput = true;
-                std::cout << key;
-                std::cout << "\n\n\n";
-
-                std::cout << "Please save this key in a safe place. You will need it to decrypt your files.\n\n";
-                masterKeyCheck();
-                break;
+                std::cout << "\n" << std::setfill('*') << std::setw(50) << "" << std::endl;
+                std::cout << "Your new master key is:" << std::endl;
+                std::cout << key << std::endl;
+                std::cout << std::setfill('*') << std::setw(50) << "" << std::endl << std::endl;
+                std::cout << "Please save this key in a secure location." << std::endl;
+                std::cout << "You will need it to decrypt your files." << std::endl << std::endl;
+                std::cout << "Press Enter to continue...";
+                std::cin.get();
+                return masterKeyCheck();
             case 'q':
                 allExit();
                 break;
             default:
-                std::cout << "Invalid choice. Please enter Y, N, or Q.\n";
+                std::cout << "\nInvalid choice. Please enter Y, N, or Q." << std::endl;
+                std::cout << "Press Enter to continue...";
+                std::cin.get();
                 break;
         }
     }

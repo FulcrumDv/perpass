@@ -19,6 +19,7 @@ void Display::setPassManager(PassManager* manager) {
 
 void Display::menu() {
     callASCIIScript();
+    std::cout << "loaded " << pm->getAccountSize() << " accounts" << "\n\n";
     std::cout << "Please select one of the following: " << std::endl;
     std::cout << "1. View all Accounts" << std::endl;
     std::cout << "2. Add a new Account" << std::endl;

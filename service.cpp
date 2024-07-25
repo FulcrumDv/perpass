@@ -17,6 +17,7 @@ void Service::run() {
     bool continueRunning = true;
     while (continueRunning) {
         display.menu();
+
         bool accountModified = display.selection(filename, key);
         if (accountModified) {
             pm.savePasswordToFile(filename, key);

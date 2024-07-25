@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 
+// Getter for account size
+size_t PassManager::getAccountSize() { return accounts.size(); }
+
 void PassManager::savePasswordToFile(const std::string &filename,
                                      const std::string &masterPass) {
   Encryption enc;
@@ -62,16 +65,12 @@ bool PassManager::loadPasswordsFromFile(const std::string &filename,
       if (std::getline(iss, website, '|') && std::getline(iss, username, '|') &&
           std::getline(iss, password)) {
         accounts[website].push_back({username, password});
-      } else {
-        std::cerr << "Invalid line format: " << decryptedLine << std::endl;
       }
     } catch (const std::exception &e) {
       std::cerr << "Error decrypting entry: " << e.what() << std::endl;
     }
   }
   file.close();
-  std::cout << "Loaded " << accounts.size() << " websites from file."
-            << std::endl;
   return !accounts.empty();
 }
 

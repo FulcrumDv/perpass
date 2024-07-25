@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #ifndef PASSMANAGER_H
 #define PASSMANAGER_H
 
@@ -19,6 +20,7 @@ private:
   std::unordered_map<std::string, std::vector<accountInfo>> accounts;
 
 public:
+  size_t getAccountSize();
   void savePasswordToFile(const std::string &filename, const std::string &masterPass);
   bool  loadPasswordsFromFile(const std::string &filename, const std::string &masterPass);
   void addAccount(const std::string &website, const std::string &username,
