@@ -35,6 +35,7 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
         std::cout << "Enter your choice: ";
         if (std::cin >> choice) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << std::endl;
             break;
         } else {
             std::cin.clear();

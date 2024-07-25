@@ -21,7 +21,6 @@ void Service::run() {
         bool accountModified = display.selection(filename, key);
         if (accountModified) {
             pm.savePasswordToFile(filename, key);
-            std::cout << "Changes saved successfully!" << std::endl;
         }
         if (!continueRunning) {
             break;
