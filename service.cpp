@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits>
 
-Service::Service() : pm(), display(), filename("passwords.txt") {
+Service::Service() : pm(), display(), filename("./pass/passwords.txt") {
     Utilities util;
     key = util.masterKeyCheck();
     if (pm.loadPasswordsFromFile(filename, key)) {
@@ -11,7 +11,6 @@ Service::Service() : pm(), display(), filename("passwords.txt") {
         std::cout << "No existing passwords found or unable to load passwords." << std::endl;
     }
     display.setPassManager(&pm);
-    std::cout << "Debug: PassManager set in Display" << std::endl;
 }
 
 void Service::run() {
