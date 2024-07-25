@@ -36,6 +36,7 @@ void PassManager::savePasswordToFile(const std::string &filename,
 }
 
 bool PassManager::loadPasswordsFromFile(const std::string &filename, const std::string &masterKey) {
+    Encryption enc;
      std::ifstream file(filename, std::ios::binary);
      if (!file) {
          std::cerr << "Error opening file for reading: " << filename << std::endl;
@@ -70,11 +71,17 @@ bool PassManager::loadPasswordsFromFile(const std::string &filename, const std::
      return !accounts.empty();
  }
 
-void PassManager::addAccount(const std::string &website,
-                             const std::string &username,
-                             const std::string &pass) {
-  accounts[website].push_back({username, pass});
-}
+ void PassManager::addAccount(const std::string &website,
+                              const std::string &username,
+                              const std::string &pass) {
+   std::cout << "Adding account for website: " << website << std::endl;
+   std::cout << "Username: " << username << std::endl;
+   std::cout << "Password: " << pass << std::endl;
+
+   accounts[website].push_back({username, pass});
+
+   std::cout << "Account added successfully. Total accounts for " << website << ": " << accounts[website].size() << std::endl;
+ }
 void PassManager::removePass(const std::string &website, const std::string &username) {
   auto iter = accounts.find(website);
   if (iter != accounts.end()) {
@@ -136,4 +143,4 @@ void PassManager::viewAllPasses(const std::string& filename) {
                 std::cout << std::endl;
             }
         }
-    }}
+    }

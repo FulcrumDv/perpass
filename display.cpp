@@ -1,6 +1,5 @@
 #include "display.h"
 #include "passManager.h"
-#include "utilities.h"
 #include <iostream>
 #include <limits>
 #include <string>
@@ -12,6 +11,10 @@ void Display::callASCIIScript() {
     if (result != 0) {
         std::cerr << "Failed to run Python script. Error code: " << result << std::endl;
     }
+}
+
+void Display::setPassManager(PassManager* manager) {
+    pm = manager;
 }
 
 void Display::menu() {
@@ -26,9 +29,8 @@ void Display::menu() {
 }
 
 bool Display::selection(const std::string &filename, const std::string &masterKey) {
-    PassManager pm;
-    Utilities util;
     int choice;
+    bool accountModified = false;
     while (true) {
         std::cout << "Enter your choice: ";
         if (std::cin >> choice) {
@@ -42,7 +44,7 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
     }
     switch (choice) {
     case 1:
-        pm.viewAllPasses(filename);
+        pm->viewAllPasses(filename);
         break;
     case 2: {
         std::string website, username, password;
@@ -53,8 +55,9 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
         std::getline(std::cin, username);
         std::cout << "Password: ";
         std::getline(std::cin, password);
-        pm.addAccount(website, username, password);
+        pm->addAccount(website, username, password);
         std::cout << "Account added successfully!" << std::endl;
+        accountModified = true;
         break;
     }
     case 3: {
@@ -68,8 +71,9 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
         std::getline(std::cin, currentPassword);
         std::cout << "New password: ";
         std::getline(std::cin, newPassword);
-        if (pm.editPass(website, username, currentPassword, newPassword)) {
+        if (pm->editPass(website, username, currentPassword, newPassword)) {
             std::cout << "Password updated successfully!" << std::endl;
+            accountModified = true;
         } else {
             std::cout << "Failed to update password. Please check your inputs." << std::endl;
         }
@@ -82,8 +86,9 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
         std::getline(std::cin, website);
         std::cout << "Username: ";
         std::getline(std::cin, username);
-        pm.removePass(website, username);
+        pm->removePass(website, username);
         std::cout << "Account removed successfully!" << std::endl;
+        accountModified = true;
         break;
     }
     case 5: {
@@ -91,37 +96,15 @@ bool Display::selection(const std::string &filename, const std::string &masterKe
         std::cout << "Please enter the following:\n";
         std::cout << "Website: ";
         std::getline(std::cin, website);
-        pm.viewPass(website);
+        pm->viewPass(website);
         break;
     }
     case 6:
-        pm.savePasswordToFile(filename, masterKey);
-        std::cout << "Passwords saved successfully!" << std::endl;
         std::cout << "Exiting..." << std::endl;
-        util.allExit();
-        break;
+        return false;
     default:
         std::cout << "Invalid selection, please try again" << std::endl;
         break;
     }
-    return true;
-}
-
-void Display::run(const std::string &filename, const std::string &masterKey) {
-    PassManager pm;
-    while (true) {
-        menu();
-        selection(filename, masterKey);
-
-        // After each operation, ask if the user wants to continue
-        char continueChoice;
-        std::cout << "\nDo you want to perform another operation? (y/n): ";
-        std::cin >> continueChoice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        if (tolower(continueChoice) != 'y') {
-            std::cout << "Thank you for using the Password Manager. Goodbye!" << std::endl;
-            break;
-        }
-    }
+    return accountModified;
 }
