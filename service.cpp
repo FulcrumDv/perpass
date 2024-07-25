@@ -5,11 +5,7 @@
 Service::Service() : pm(), display(), filename("./pass/passwords.txt") {
     Utilities util;
     key = util.masterKeyCheck();
-    if (pm.loadPasswordsFromFile(filename, key)) {
-        std::cout << "Passwords loaded successfully!" << std::endl;
-    } else {
-        std::cout << "No existing passwords found or unable to load passwords." << std::endl;
-    }
+    pm.loadPasswordsFromFile(filename, key);
     display.setPassManager(&pm);
 }
 
