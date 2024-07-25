@@ -4,6 +4,7 @@
 #include <limits>
 #include <string>
 #include <cstdlib>
+#include <iomanip>
 
 void Display::callASCIIScript() {
     std::string command = "python3 ascii_art.py";
@@ -18,15 +19,39 @@ void Display::setPassManager(PassManager* manager) {
 }
 
 void Display::menu() {
-    callASCIIScript();
-    std::cout << "Successfully loaded " << pm->getAccountSize() << " accounts from file." << "\n\n";
-    std::cout << "Please select one of the following: " << std::endl;
-    std::cout << "1. View all Accounts" << std::endl;
-    std::cout << "2. Add a new Account" << std::endl;
-    std::cout << "3. Edit current Account" << std::endl;
-    std::cout << "4. Delete an Account" << std::endl;
-    std::cout << "5. Search for an Account" << std::endl;
-    std::cout << "6. Save and Exit" << std::endl;
+    const int WIDTH = 50;
+    const std::string BOLD = "\033[1m";
+    const std::string RESET = "\033[0m";
+    const std::string BLUE = "\033[34m";
+    const std::string RED = "\033[31m";
+    const std::string GREEN = "\033[32m";
+
+    // Clear the screen
+    std::cout << "\033[2J\033[1;1H";
+
+    std::cout << std::setfill('=') << std::setw(WIDTH) << "" << std::endl;
+    std::cout << BOLD << RED << std::setfill(' ') << std::setw((WIDTH + 15) / 2) << "PERPASS MENU" << RESET << std::endl;
+    std::cout << std::setfill('=') << std::setw(WIDTH) << "" << std::endl << std::endl;
+
+    std::cout << GREEN << "Successfully loaded " << BOLD << pm->getAccountSize() << RESET << GREEN << " accounts from file." << RESET << "\n\n";
+
+    std::cout << BOLD << "Please select one of the following options:" << RESET << std::endl << std::endl;
+
+    const std::string options[] = {
+        "View all Accounts",
+        "Add a new Account",
+        "Edit current Account",
+        "Delete an Account",
+        "Search for an Account",
+        "Save and Exit"
+    };
+
+    for (int i = 0; i < 6; ++i) {
+        std::cout << std::setw(4) << "" << BOLD << "[" << (i + 1) << "]" << RESET << " " << options[i] << std::endl;
+    }
+
+    std::cout << std::endl;
+    std::cout << std::setfill('=') << std::setw(WIDTH) << "" << std::endl;
 }
 
 bool Display::selection(const std::string &filename, const std::string &masterKey) {

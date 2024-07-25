@@ -61,6 +61,11 @@ std::string Utilities::masterKeyCheck() {
                     std::cout << "Press Enter to continue...";
                     std::cin.get();
                     continue;
+                }else if (key.length() != 256) {
+                    std::cout << "\nMaster key must be 256 characters long. Please try again." << std::endl;
+                    std::cout << "Press Enter to continue...";
+                    std::cin.get();
+                    continue;
                 }
                 validInput = true;
                 break;
