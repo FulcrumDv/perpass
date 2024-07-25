@@ -7,9 +7,10 @@
 
 class Display {
 public:
-  void menu();
-  void selection(const std::string &filename, const std::string &masterKey);
-  void callASCIIScript();
+    void menu();
+    bool selection(const std::string &filename, const std::string &masterKey);
+    void callASCIIScript();
+    void run(const std::string &filename, const std::string &masterKey);
 };
 
-#endif
+#endif // DISPLAY_H

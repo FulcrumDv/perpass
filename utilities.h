@@ -3,10 +3,11 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 #include <iostream>
+#include <string>
 
 class Utilities {
 public:
-  bool masterKeyCheck();
+  std::string masterKeyCheck();
   std::string generateMasterKey();
   std::string generatePassword();
   void allExit();

@@ -130,7 +130,7 @@ std::string Encryption::decryptLine(const std::vector<unsigned char> &encryptedD
         throw std::runtime_error("Decryption failed");
     }
 
-    // Remove PKCS7 padding and any non-printable characters
+    // Remove any non-printable characters
     std::string result;
     for (int i = 0; i < decrypted_len; ++i) {
         if (std::isprint(decrypted[i])) {
