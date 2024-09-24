@@ -1,6 +1,6 @@
 
 # Pasword Manager
-<p>Basic cli based password manager in c++ that stores and manages account information with AES-256 encryption</p>
+<p>Basic cli based password manager that stores and manages account information with AES-256 encryption</p>
 <p>This is a personal project for me to use C++ practically and implement encryption</p>
 
 - [x] Load encrypted passwords from a file
