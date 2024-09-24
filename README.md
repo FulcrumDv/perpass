@@ -1,5 +1,5 @@
 
-# perpass Pasword Manager
+# Pasword Manager
 <p>Basic cli based password manager in c++ that stores and manages account information with AES-256 encryption</p>
 <p>This is a personal project for me to use C++ practically and implement encryption</p>
 
@@ -8,7 +8,7 @@
 - [x] Encrypt account info with AES using openSSL
 - [x] Save encrypted passwords to a local file
 - [x] Master key protection for accessing stored passwords
-- [x] Add visual represenation
+- [] Add visual represenation
 
 ## Compile and Run
 
