@@ -25,8 +25,3 @@ clang++ encryption.cpp main.cpp passManager.cpp display.cpp service.cpp utilitie
 ```
 
 
-### Down the line
-- Move storage method to DB
-- Implement AES from scratch (simply for learning)
-
-
