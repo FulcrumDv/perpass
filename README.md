@@ -8,7 +8,6 @@
 - [x] Encrypt account info with AES using openSSL
 - [x] Save encrypted passwords to a local file
 - [x] Master key protection for accessing stored passwords
-- [ ] Add visual represenation
 
 ## Compile and Run
 
